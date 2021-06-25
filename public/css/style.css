@@ -50,6 +50,11 @@
     flex-flow: column;
     color: var(--text-color);
   }
+
+  .overflow {
+    overflow: hidden;
+  }
+
   /* button */
   .btn {
     background-color: var(--text-color-light);
@@ -78,7 +83,7 @@
   }
   
   /* text */
-  .text-danger{
+  .text-error {
     color: var(--danger);
     font-size: 1.4rem;
     /*font-weight: bold;*/
