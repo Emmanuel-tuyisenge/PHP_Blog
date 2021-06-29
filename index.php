@@ -1,9 +1,7 @@
 <?php
-//$filename = __DIR__ . '/data/article.json';
-$pdo = require_once './database.php';
-$statement = $pdo->prepare('SELECT * FROM article');
-$statement->execute();
-$articles = $statement->fetchAll();
+$articleDb = require_once './data/database/models/article_Db.php';
+
+$articles = $articleDb->fetchAll();
 $categories = [];
 //$selectedCat = '';
 
