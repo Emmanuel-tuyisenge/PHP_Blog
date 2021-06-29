@@ -1,9 +1,8 @@
 <?php
 $articles = json_decode(file_get_contents('./article.json'), true);
-
 $dns = 'mysql:host=localhost;dbname=blog';
-$user = '';
-$pwd = '';
+$user = 'root';
+$pwd = 'root';
 
 $pdo = new PDO($dns, $user, $pwd);
 
