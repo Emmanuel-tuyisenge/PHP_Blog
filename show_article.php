@@ -1,4 +1,5 @@
 <?php
+require_once './data/database/database.php';
 $articleDb = require_once './data/database/models/article_Db.php';
 $statement = $pdo->prepare('SELECT * FROM article WHERE id=:id');
 $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);

@@ -1,5 +1,12 @@
 <?PHP
 
+require_once './data/database/database.php';
+require_once './data/database/security.php';
+$currentUser = isLoggedin();
+if (!$currentUser) {
+    header('Location: /');
+}
+
 $articleDb = require_once './data/database/models/article_Db.php';
 const ERROR_REQUIRED = 'Veuillez renseigner ce champ';
 const ERROR_TITLE_TOO_SHORT = 'Le titre est trop court';
@@ -67,13 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $article['image'] = $image;
             $article['category'] = $category;
             $article['content'] = $content;
+            $article['author'] = $currentUser['id'];
             $articleDb->updateOne($article);
         } else {
             $articleDb->createOne([
                 'title' => $title,
                 'image' => $image,
                 'category' => $category,
-                'content' => $content
+                'content' => $content,
+                'author' => $currentUser['id']
             ]);
         }
         header('Location: /');
@@ -87,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <?php require_once 'includes/head.php' ?>
-    <link rel="stylesheet" href="/public/css/add_article.css">
+    <!--<link rel="stylesheet" href="/public/css/add_article.css">-->
 
     <title><?= $id ? 'Modifier' : 'Créer' ?> un article</title>
 </head>

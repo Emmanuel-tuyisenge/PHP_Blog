@@ -1,8 +1,28 @@
+<?php
+$currentUser = $currentUser ?? false;
+?>
+
 <header>
     <a href="/" class="logo">Blog</a>
     <ul class="header-menu">
-        <li class=<?= $_SERVER['REQUEST_URI'] === '/add_article.php' ? 'active' : '' ?>>
-            <a href="/add_article.php"> Ecrire un article</a>
-        </li>
+        <?php if ($currentUser) : ?>
+            <li class=<?= $_SERVER['REQUEST_URI'] === '/add_article.php' ? 'active' : '' ?>>
+                <a href="/add_article.php"> Ecrire un article</a>
+            </li>
+            <li class=<?= $_SERVER['REQUEST_URI'] === '/auth_logout.php' ? 'active' : '' ?>>
+                <a href="/auth_logout.php"> Déconnexion</a>
+            </li>
+            <li class=<?= $_SERVER['REQUEST_URI'] === '/profile.php' ? 'active' : '' ?>>
+                <a href="/profile.php"> Ma page</a>
+            </li>
+        <?php else : ?>
+            <li class=<?= $_SERVER['REQUEST_URI'] === '/auth_register.php' ? 'active' : '' ?>>
+                <a href="/auth_register.php"> Inscription</a>
+            </li>
+            <li class=<?= $_SERVER['REQUEST_URI'] === '/auth_login.php' ? 'active' : '' ?>>
+                <a href="/auth_login.php"> Connexion</a>
+            </li>
+
+        <?php endif; ?>
     </ul>
 </header>
