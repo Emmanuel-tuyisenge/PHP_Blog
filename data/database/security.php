@@ -4,7 +4,7 @@ function isLoggedin()
 {
     global $pdo;
     //$pdo = require_once './data/database/database.php';
-    print_r($pdo);
+
     $sessionId = $_COOKIE['session'] ?? '';
     if ($sessionId) {
         $statementSession = $pdo->prepare('SELECT * FROM session WHERE id= :id');
