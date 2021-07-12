@@ -3,6 +3,7 @@
     flex-flow: row wrap;
     justify-content: center;
     align-items: flex-start;
+    margin-top: 3rem;
 }
 
 .article {
@@ -49,6 +50,7 @@
 
 .category-container{
     flex: 200px;
+    margin-top: 7rem;
 }
 
 .category-container li{
@@ -65,3 +67,15 @@
     color: var(--primary);
     font-weight: 700;
 }
+
+@media only screen and (max-width: 800px) {
+
+    .category-container{
+      display: none;
+    }
+    .articles-container{
+      flex-flow: column;
+      align-items: unset;
+    }
+  
+  }

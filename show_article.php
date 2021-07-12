@@ -1,7 +1,7 @@
 <?php
 require_once './data/database/database.php';
-require_once './data/database/security.php';
-$currentUser = isLoggedin();
+$authDb = require_once './data/database/security.php';
+$currentUser = $authDb->isLoggedin();
 
 require_once './data/database/database.php';
 $articleDb = require_once './data/database/models/article_Db.php';

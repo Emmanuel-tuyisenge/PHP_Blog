@@ -1,8 +1,8 @@
 <?PHP
 
 require_once './data/database/database.php';
-require_once './data/database/security.php';
-$currentUser = isLoggedin();
+$authDb = require_once './data/database/security.php';
+$currentUser = $authDb->isLoggedin();
 if (!$currentUser) {
     header('Location: /');
 }

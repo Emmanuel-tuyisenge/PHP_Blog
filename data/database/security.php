@@ -23,7 +23,7 @@ class AuthDB
         $this->statementReadUser = $pdo->prepare('SELECT * FROM user WHERE id=:id');
         $this->statementReadUserFromEmail = $pdo->prepare('SELECT * FROM user WHERE email=:email');
         $this->statementCreateSession = $pdo->prepare('INSERT INTO session VALUES (
-            DEFAULT, 
+            :sessionId, 
             :userId
         )');
         $this->statementDestroySession = $pdo->prepare('DELETE FROM session WHERE id=:id');
@@ -31,10 +31,14 @@ class AuthDB
 
     function login(string $userId): void
     {
+        $sessionId = bin2hex(random_bytes(32));
         $this->statementCreateSession->bindValue(':userId', $userId);
+        $this->statementCreateSession->bindValue(':sessionId', $sessionId);
         $this->statementCreateSession->execute();
-        $sessionId = $this->pdo->lastInsertId();
+        //$sessionId = $this->pdo->lastInsertId();
+        $signature = hash_hmac('sha256', $sessionId, 'trois petits chats');
         setcookie('session', $sessionId, time() + 60 * 60 * 24 * 14, '', '', false, true);
+        setcookie('signature', $signature, time() + 60 * 60 * 24 * 14, '', '', false, true);
     }
 
     function register(array $user): void
@@ -55,14 +59,18 @@ class AuthDB
         //$pdo = require_once './data/database/database.php';
 
         $sessionId = $_COOKIE['session'] ?? '';
-        if ($sessionId) {
-            $this->statementReadSession->bindValue(':id', $sessionId);
-            $this->statementReadSession->execute();
-            $session = $this->statementReadSession->fetch();
-            if ($session) {
-                $this->statementReadUser->bindValue(':id', $session['userId']);
-                $this->statementReadUser->execute();
-                $user = $this->statementReadUser->fetch();
+        $signature = $_COOKIE['signature'] ?? '';
+        if ($sessionId && $signature) {
+            $hash = hash_hmac('sha256', $sessionId, 'trois petits chats');
+            if (hash_equals($hash, $signature)) {
+                $this->statementReadSession->bindValue(':id', $sessionId);
+                $this->statementReadSession->execute();
+                $session = $this->statementReadSession->fetch();
+                if ($session) {
+                    $this->statementReadUser->bindValue(':id', $session['userId']);
+                    $this->statementReadUser->execute();
+                    $user = $this->statementReadUser->fetch();
+                }
             }
         }
 
@@ -74,6 +82,7 @@ class AuthDB
         $this->statementDestroySession->bindValue(':id', $sessionId);
         $this->statementDestroySession->execute();
         setcookie('session', '', time() - 1);
+        setcookie('signature', '', time() - 1);
         return;
     }
 

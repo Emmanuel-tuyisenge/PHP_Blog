@@ -2,7 +2,7 @@
 .article-cover-img{
     height: 50rem;
     width: 100%;
-    background-size: cover;
+    background-size:cover;
     border-radius: 3px;
 }
 

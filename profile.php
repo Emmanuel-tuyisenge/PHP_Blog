@@ -1,9 +1,9 @@
 <?PHP
 
 require_once './data/database/database.php';
-require_once './data/database/security.php';
+$authDb = require_once './data/database/security.php';
 $articleDb = require_once './data/database/models/article_Db.php';
-$currentUser = isLoggedin();
+$currentUser = $authDb->isLoggedin();
 if (!$currentUser) {
     header('Location: /');
 }
