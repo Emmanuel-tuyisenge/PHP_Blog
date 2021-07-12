@@ -1,8 +1,8 @@
 <?php
 require './data/database/database.php';
-require './data/database/security.php';
+$authDb = require './data/database/security.php';
 
-$currentUser = isLoggedin();
+$currentUser = $authDb->isLoggedin();
 $articleDb = require_once './data/database/models/article_Db.php';
 
 $articles = $articleDb->fetchAll();
