@@ -1,9 +1,23 @@
+header {
+    background-color: var(--primary);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    color: var(--text-color-light);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+  }
 
 .article-cover-img{
     height: 50rem;
     width: 100%;
     background-size:cover;
     border-radius: 3px;
+    margin-top: 5rem;
 }
 
 .article-title {

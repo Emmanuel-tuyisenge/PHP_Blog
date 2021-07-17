@@ -100,10 +100,9 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
+    position: relative;
     width: 100%;
     z-index: 1000;
-    margin-bottom: 2rem;
   }
   .header-menu{
     margin: 0;
