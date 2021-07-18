@@ -17,7 +17,7 @@ header {
     width: 100%;
     background-size:cover;
     border-radius: 3px;
-    margin-top: 5rem;
+    margin-top: 1rem;
 }
 
 .article-title {
@@ -42,6 +42,7 @@ header {
     cursor: pointer;
     margin-bottom: 1rem;
     display: block;
+    margin-top: 6rem;
 }
 
 .article-author{
